@@ -1,0 +1,21 @@
+<%= paginate @cards %>
+<div class="col-4">
+  <ul class="list-group list-group-flush w-3=20 p-2 ">
+    <% @cards.each do |card| %>
+      <% if current_user.id == card.user_id %>
+        <li class="list-group-item list-group-item-warning" aria-current="true"> Card name: <%= card.name %></li>
+        <% if @balances.where(card_name: card.name).last == nil %>
+          <li class="list-group-item">Balance: 0</li>
+          <%= link_to "Edit card", edit_card_path(card), :class => 'btn btn-warning'%>
+          <%= button_to "Delete card", card_path(card), method: :delete, :class => 'btn btn-danger'%>
+        <% else %>
+        <li class="list-group-item">Balance: <%= @balances.where(card_name: card.name).last.balance %></li>
+        <br>
+          <%= link_to "Edit card", edit_card_path(card), :class => 'btn btn-warning'%>
+          <%= button_to "Delete card", card_path(card), method: :delete, :class => 'btn btn-danger'%>
+      <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+<%= link_to "Add new card", new_card_path, :class => 'btn btn-outline-primary' %>

@@ -1,0 +1,68 @@
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .container {
+        width: 1170px;
+        margin: 0px auto;
+        display: block;
+        height: 100%;
+    }
+
+    .container-fluid{
+        float: left;
+        width: 100%;
+        height: 100%;
+    }
+
+    .leftnav{
+        float: left;
+        width: 280px;
+        height: 100%;
+    }
+
+</style>
+<div class="row">
+  <div class="col-4">
+<div class="container">
+  <div class="container-fluid">
+    <div class="leftnav">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <div class="alert alert-light">
+              <%= form_with(id: 'revenueForm', model: @revenue, local: true) do |f| %>
+              <%= f.hidden_field :user_id, value: current_user.id  %>
+              <p class="card-text">Description: <%= f.text_field(:description, {:class => 'form-control'}) %></p>
+              <p class="card-text">Sum: <%= f.number_field(:sum, {:class => 'form-control'}) %></p>
+              <p class="card-text">Data: <%= f.date_field(:data, {:class => 'form-control'}) %></p>
+              <p class="card-text">Card: <%= f.number_field(:card_id, {:class => 'form-control'}) %></p>
+
+                <p>
+                <div class="revenues">
+                  <%= f.submit %>
+
+                </div>
+                </p>
+            <% end %>
+            </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+    <div class="col-4">
+      <li class="list-group-item font-monospace" style="font-size: 1.2rem">Choose card: </li>
+      <li class="list-group-item font-monospace" style="font-size: 1rem">
+        <% @cards.each do |card| %>
+          <% if current_user.id == card.user_id %>
+            Enter <%= card.id %> to choose <%=  card.name %>
+            <br>
+      <% end %>
+        <% end %>
+      </li>
+    </div>
+</div>

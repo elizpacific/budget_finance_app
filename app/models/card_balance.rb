@@ -1,0 +1,3 @@
+class CardBalance < ApplicationRecord
+
+end

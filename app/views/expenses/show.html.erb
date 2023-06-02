@@ -1,0 +1,13 @@
+<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+  <div class="accordion-body">
+    <h3>Description: <%= @expense.description %></h3>
+    <h3>Sum: <%= @expense.sum %></h3>
+    <h3>Date: <%= @expense.data %></h3>
+    <h3>Card: <%= find_card_by_exp(@expense.card_id)%></h3>
+    <h3>Category: <%= find_category_by_exp(@expense.category_id) %></h3>
+    <%= link_to "Edit expense", edit_expense_path(@expense), :class => 'btn btn-warning'%>
+    <%= button_to "Delete expense", expense_path(@expense), method: :delete, :class => 'btn btn-danger'%>
+  </div>
+  <p>
+  </p>
+</div>

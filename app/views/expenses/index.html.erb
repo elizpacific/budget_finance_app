@@ -1,0 +1,44 @@
+<%= paginate @expenses %>
+
+<div class="row">
+<div class="col-4">
+<ul class="list-group list-group-flush w-3=20 p-2 ">
+  <% @expenses.each do |expense| %>
+    <% if current_user.id == expense.user_id %>
+      <li class="list-group-item list-group-item-warning" aria-current="true"> Description: <%= expense.description %></li>
+  <li class="list-group-item">Sum: <%= expense.sum %></li>
+  <li class="list-group-item">Date: <%= expense.data %></li>
+    <%= link_to "See more", expense_path(expense), :class => 'btn btn-outline-primary' %>
+    <br>
+  <% end %>
+  <% end %>
+</ul>
+</div>
+  <div class="col-4">
+    <ul class="list-group list-group-flush w-3=20 p-2 ">
+    <%= search_form_for @q do |f| %>
+        <li class="list-group-item">
+          <%= f.label :description %> <%= f.text_field :description_cont%>
+        </li>
+      <br>
+        <li class="list-group-item">
+        <%= f.label :sum %>
+      <%= f.text_field :sum_cont%>
+        </li>
+      <br>
+        <li class="list-group-item">
+        <%= f.label :data %>
+      <%= f.text_field :data_cont%>
+        </li>
+      <br>
+        <input class="btn btn-primary" type="submit" value="Submit">
+    <% end %>
+      <br>
+
+    </ul>
+  </div>
+
+</div>
+<%= link_to "Add new expense", new_expense_path, :class => 'btn btn-outline-primary' %>
+<br>
+

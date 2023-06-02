@@ -1,0 +1,56 @@
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .container {
+        width: 1170px;
+        margin: 0px auto;
+        display: block;
+        height: 100%;
+    }
+
+    .container-fluid{
+        float: left;
+        width: 100%;
+        height: 100%;
+    }
+
+    .leftnav{
+        float: left;
+        width: 280px;
+        height: 100%;
+    }
+
+    .avatar-image {
+        width: 250px; /* розмір кружечка */
+        height: 250px;
+        border-radius: 50%; /* створення круглої форми */
+        object-fit: cover; /* підгонка зображення */
+    }
+
+</style>
+
+<div class="container">
+  <div class="container-fluid">
+    <div class="leftnav">
+      <div class="card" style="width: 30rem; height: 40rem;">
+        <div class="card-body text-center">
+          <div class="alert alert-ligh" style="margin-top: 0rem ;font-size: 25px">
+            <% if @user.image.attached? %>
+                  <%= image_tag @user.image, width: '300px', height: '300px', class: 'avatar-image'%>
+              <% end %>
+            <br>
+            <p class="card-title font-monospace">Username: <%= current_user.username %></p>
+            <p class="card-text font-monospace">Email: <%= current_user.email %>></p>
+            <p class="card-text font-monospace">Date_of_birth: <%= current_user.date_of_birth %></p>
+            <p class="card-text font-monospace">Purpose: <%= current_user.purpose %></p>
+            <p class="card-text font-monospace"><%= link_to "Edit user", edit_user_registration_path, :class => 'btn btn-warning'%></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

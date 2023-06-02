@@ -1,0 +1,16 @@
+<%= paginate @revenues %>
+<div class="col-4">
+  <ul class="list-group list-group-flush w-3=20 p-2 ">
+    <% @revenues.each do |revenue| %>
+      <% if current_user.id == revenue.user_id %>
+      <li class="list-group-item list-group-item-warning" aria-current="true">
+        Description: <%= revenue.description %></li>
+      <li class="list-group-item">Sum: <%= revenue.sum %></li>
+      <li class="list-group-item">Date: <%= revenue.data %></li>
+      <%= link_to "See more", revenue_path(revenue), :class => 'btn btn-outline-primary' %>
+      <br>
+    <% end %>
+    <% end %>
+  </ul>
+</div>
+<%= link_to "Add new revenue", new_revenue_path, :class => 'btn btn-outline-primary' %>

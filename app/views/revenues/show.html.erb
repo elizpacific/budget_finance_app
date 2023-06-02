@@ -1,0 +1,12 @@
+<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+  <div class="accordion-body">
+    <h3>Description: <%= @revenue.description %></h3>
+    <h3>Sum: <%= @revenue.sum %></h3>
+    <h3>Date: <%= @revenue.data %></h3>
+    <h3>Card: <%= find_card_by_exp(@revenue.card_id)%></h3>
+    <%= link_to "Edit revenue", edit_revenue_path(@revenue), :class => 'btn btn-warning'%>
+    <%= button_to "Delete revenue", revenue_path(@revenue), method: :delete, :class => 'btn btn-danger'%>
+  </div>
+  <p>
+  </p>
+</div>

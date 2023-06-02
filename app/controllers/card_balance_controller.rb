@@ -1,0 +1,2 @@
+class CardBalanceController < ApplicationController
+end

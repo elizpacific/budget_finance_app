@@ -1,0 +1,21 @@
+
+  <div class="row">
+    <div class="col-6 col-sm-7">
+      <br>
+      <p class="font-monospace container text-center">Expenses graphic</p>
+      <br>
+        <%= bar_chart @chart_exp.group(:sum).group_by_day(:data).count %>
+        </div>
+    <div class="col-6 col-sm-3"></div>
+
+    <!-- Force next columns to break to new line -->
+    <div class="w-100"></div>
+
+    <div class="col-6 col-sm-7">
+      <br>
+      <p class="font-monospace container text-center">Revenues graphic</p>
+      <br>
+      <%= bar_chart @chart_rev.group(:sum).group_by_day(:data).count %>
+    </div>
+    <div class="col-6 col-sm-3"></div>
+  </div>

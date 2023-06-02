@@ -1,0 +1,159 @@
+<html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+    .add {
+        font-family: 'Bebas Neue', cursive;
+        font-size: 3em;
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-image: linear-gradient(#1e83f6, gold);
+        background-size: 100% 10px;
+        background-repeat: no-repeat;
+        background-position: 100% 0%;
+        transition: background-size .7s, background-position .5s ease-in-out;
+    }
+
+    .add:hover {
+        background-size: 100% 100%;
+        background-position: 0% 100%;
+        transition: background-position .7s, background-size .5s ease-in-out;
+    }
+
+    html, body {
+        height: 100%;
+        margin: -50px;
+    }
+
+    .container {
+        width: 1170px;
+        margin: 60px;
+        display: block;
+        height: 100%;
+        }
+
+
+</style>
+<div class="header">
+  <div class="add"> Let`s save money! </div>
+</div>
+<body id="body-pd">
+
+<div class="container">
+
+  <div class="col-4 col-sm-3">
+    <ul class="list-group list-group-flush w-5=60 p-3" style="margin-top: 100px;">
+      <li class="list-group-item list-group-item-primary" aria-current="true">Cards</li>
+      <div class="alert alert-light">
+        <ul class="list-group">
+          <% i = 0%>
+          <% @last_balances.each do |balance| %>
+            <% if current_user.id == CardBalanceCreator.new.find_user_id_by_card_bal(balance) %>
+            <% if balance == nil %>
+              <li class="list-group-item">Name: <%= @cards.last.name %></li>
+              <li class="list-group-item">Balance: 0 </li>
+            <% else %>
+              <div class="alert alert-light">
+                <li class="list-group-item">Name: <%= balance.card_name %></li>
+                <li class="list-group-item">Balance: <%= balance.balance %></li>
+                <% if current_user.id == 1 %>
+                <p class="fw-light text-danger"> - <%= @last_expense[i]  %> $</p>
+                <p class="fw-light text-success"> + <%= @last_revenue[i] %> $</p>
+                  <% end %>
+                <% i+=1 %>
+              </div>
+            <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </ul>
+  </div>
+
+  <div class="row" style="margin-left: 350px; margin-top: -130px;">
+
+    <div class="col-4">
+      <ul class="list-group list-group-flush w-80 p-4 ">
+        <li class="list-group-item list-group-item-warning" aria-current="true">Today`s expenses</li>
+        <div class="alert alert-light">
+          <ul class="list-group">
+            <% @todays_expenses.each do |today_expense| %>
+              <% if current_user.id == today_expense.user_id %>
+              <li class="list-group-item"> <%= today_expense.sum %> to <%= find_card_by_expense(today_expense.card_id) %> </li>
+            <% end %>
+            <% end %>
+            <br>
+          </ul>
+        </div>
+      </ul>
+    </div>
+
+    <div class="col-4">
+      <ul class="list-group list-group-flush w-60 p-3">
+        <li class="list-group-item list-group-item-warning" aria-current="true">Today`s revenues</li>
+        <div class="alert alert-light">
+          <ul class="list-group">
+            <% @todays_revenues.each do |today_revenue| %>
+              <% if current_user.id == today_revenue.user_id %>
+              <li class="list-group-item"> <%= today_revenue.sum %> to <%= find_card_by_revenue(today_revenue.card_id) %> </li>
+            <% end %>
+            <% end %>
+            <br>
+          </ul>
+        </div>
+      </ul>
+    </div>
+
+    <!-- Force next columns to break to new line -->
+    <div class="w-60"></div>
+
+    <div class="col-4">
+      <ul class="list-group list-group-flush w-60 p-3 ">
+        <li class="list-group-item list-group-item-warning" aria-current="true">All expenses</li>
+        <div class="alert alert-light">
+          <ul class="list-group">
+              <% @expenses.each do |expense| %>
+              <% if current_user.id == expense.user_id %>
+                <li class="list-group-item">
+                  <%= expense.sum %>$ from <%= find_card_by_expense(expense.card_id) %>
+                </li>
+            <% end %>
+            <% end %>
+            <br>
+          </ul>
+          <%= link_to "See more", expenses_path, :class => 'btn btn-outline-primary' %>
+        </div>
+      </ul>
+    </div>
+
+    <div class="col-4">
+      <ul class="list-group list-group-flush w-60 p-3">
+        <li class="list-group-item list-group-item-warning" aria-current="true">All revenues</li>
+        <div class="alert alert-light">
+          <ul class="list-group">
+            <% if @revenues != nil %>
+            <% @revenues.each do |revenue| %>
+                <% if current_user.id == revenue.user_id %>
+              <li class="list-group-item"><%= revenue.sum %>$ to <%= find_card_by_revenue(revenue.card_id) %></li>
+            <% end %>
+            <% end %>
+            <% end %>
+            <br>
+          </ul>
+          <%= link_to "See more", revenues_path, :class => 'btn btn-outline-primary' %>
+        </div>
+      </ul>
+    </div>
+
+
+
+  </div>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+</div>
+</body>
+</html>
